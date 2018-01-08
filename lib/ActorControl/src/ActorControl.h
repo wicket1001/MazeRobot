@@ -11,19 +11,15 @@ typedef struct {
     uint8_t encoderPin;
 } motor_t;
 
-typedef struct {
-    uint8_t pinRed;
-    uint8_t pinGreen;
-    uint8_t pinBlue;
-} rgb_led_t;
-
 class ActorControl {
 public:
-    ActorControl();
+    explicit ActorControl(uint8_t port);
+
+    Servo thermoServo;
+    ContinuousRotationServo ejectionServo;
+
     void init();
 private:
-    Servo thermoServo;
-    //ContinuousRotationServo ejectionServo(2);
 };
 
 #endif

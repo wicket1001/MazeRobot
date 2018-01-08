@@ -1,17 +1,7 @@
+
 #include "ActorControl.h"
 
-ActorControl::ActorControl() {
+ActorControl::ActorControl(uint8_t port) {
     thermoServo.attach(3);
-    //ejectionServo = ContinuousRotationServo(2);
+    ejectionServo = ContinuousRotationServo(port);
 }
-
-void ActorControl::init() {
-
-}
-/*
-void ActorControl::ejectKit() {
-    crs.setSpeed(100);
-    delay();
-    crs.setSpeed(0);
-}
-*/

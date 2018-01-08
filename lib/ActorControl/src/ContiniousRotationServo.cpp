@@ -1,5 +1,7 @@
 #include "ContiniousRotationServo.h"
 
+ContinuousRotationServo::ContinuousRotationServo() {}
+
 ContinuousRotationServo::ContinuousRotationServo(uint8_t port) {
     servo.attach(port);
 
@@ -9,14 +11,11 @@ ContinuousRotationServo::ContinuousRotationServo(uint8_t port) {
     setSpeed(speed);
 }
 
-
 void ContinuousRotationServo::setDirection(direction_t dir) {
     this->dir = dir;
     setSpeed(speed);
 }
 
 void ContinuousRotationServo::setSpeed(int percent) {
-    int a = 90 + map(percent * (dir * 2 - 1), 0, 100, 0, 90);
-    Serial.println(a);
-    servo.write(a);
+    servo.write(90 + map(percent * (dir * 2 - 1), 0, 100, 0, 90));
 }

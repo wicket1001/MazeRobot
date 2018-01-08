@@ -200,6 +200,24 @@ ProcessorCount_cmd_getconf:FILEPATH=/usr/bin/getconf
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/sbin/sysctl
 
+//Value Computed by CMake
+Project_BINARY_DIR:STATIC=/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/cmake-build-debug
+
+//Value Computed by CMake
+Project_SOURCE_DIR:STATIC=/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot
+
+//Value Computed by CMake
+mazerobot_BINARY_DIR:STATIC=/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/cmake-build-debug
+
+//Value Computed by CMake
+mazerobot_SOURCE_DIR:STATIC=/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot
+
+//Value Computed by CMake
+multisocket_BINARY_DIR:STATIC=/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/cmake-build-debug
+
+//Value Computed by CMake
+multisocket_SOURCE_DIR:STATIC=/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot
+
 
 ########################
 # INTERNAL cache entries

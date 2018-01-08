@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6"/>
 	<Project>
-		<Option title="Mazerobot"/>
+		<Option title="mazerobot"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
 		<Option virtualFolders="CMake Files\;"/>
@@ -133,18 +133,11 @@
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/cores/arduino"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/variants/eightanaloginputs"/>
 					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/src"/>
-					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Servo/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/ActorControl/src"/>
-					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/MPU-9250-DMP/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/APDS-9960/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/MLX90614/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/SensorControl/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/SerialCommunication/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src"/>
+					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Adafruit_CircuitPlayground"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Adafruit_CircuitPlayground/utility"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Bridge/src"/>
@@ -160,6 +153,7 @@
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Robot_Control/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Robot_Motor/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/SD/src"/>
+					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Servo/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/SpacebrewYun/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Stepper/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/TFT/src"/>
@@ -201,18 +195,11 @@
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/cores/arduino"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/variants/eightanaloginputs"/>
 					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/src"/>
-					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Servo/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/ActorControl/src"/>
-					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/MPU-9250-DMP/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/APDS-9960/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/MLX90614/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/SensorControl/src"/>
-					<Add directory="/home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot/lib/SerialCommunication/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src"/>
+					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Adafruit_CircuitPlayground"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Adafruit_CircuitPlayground/utility"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Bridge/src"/>
@@ -228,6 +215,7 @@
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Robot_Control/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Robot_Motor/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/SD/src"/>
+					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Servo/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/SpacebrewYun/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/Stepper/src"/>
 					<Add directory="/home/user/.platformio/packages/framework-arduinoavr/libraries/TFT/src"/>
