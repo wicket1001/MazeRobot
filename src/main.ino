@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <stdio.h>
+#include <Servo.h>
 
 #include "../lib/SerialCommunication/src/SerialCommunication.h"
 #include "../lib/SensorControl/src/SensorControl.h"
@@ -10,54 +11,69 @@ SerialCommunication ser;
 char serIn[300];
 char serOut[300];
 
+//Servo s;
+
 // SENSOR
 SensorControl sc;
 uint16_t colors[4];
-float accel[3];
-float gyro[3];
-float mag[3];
+float arr[3];
 temp_t *t;
 double distances[4];
 
 // ACTOR
-ActorControl act = ActorControl((uint8_t)2);
+ActorControl act;
 int num;
 
 void setup() {
     ser = SerialCommunication();
+//    s.attach(2);
     sc = SensorControl();
+    act = ActorControl();
+    sc.init();
 }
 
 boolean equals(char* str1, char* str2) {
-    return strcmp(str1, (char*) str2) == 0;
+    return strncmp(str1, str2, strlen(str2)) == 0;
 }
 
 void loop() {
+    memset(&serIn, 0, sizeof(serIn));
+    memset(&serOut, 0, sizeof(serOut));
     while (ser.isEmpty()) { }
     ser.read(serIn);
-    if (equals(serIn, ">getTemp") == 0) {
+    ser.write(serIn);
+    if (equals(serIn, ">getTemp")) {
         if ((t = sc.getTemperature())) {
-            sprintf(serOut, "<temp:%.2f", t->object); // <temp:12.34
+            sprintf(serOut, "<temp:%i.%02i", (int)t->object, (int)((t->object-(int)t->object)*100)); // <temp:12.34
         } else {
             sprintf(serOut, "<temp:null");
         }
     } else if (equals(serIn,  ">getAccel")) {
-        if (sc.getAccel(accel)) {
-            sprintf(serOut, "<accel:%.6f,%.6f,%.6f", accel[0], accel[1], accel[2]);
+        if (sc.getAccel(arr)) {
+            sprintf(serOut, "<accel:%i.%06i,%i.%06i,%i.%06i",
+                    (int)arr[0], (int)((arr[0]-(int)arr[0]*1000000)),
+                    (int)arr[1], (int)((arr[1]-(int)arr[1]*1000000)),
+                    (int)arr[2], (int)((arr[2]-(int)arr[2]*1000000)));
         } else {
             sprintf(serOut, "<accel:null");
         }
     } else if (equals(serIn, ">getGyro")) {
-        if (sc.getGyro(gyro)) {
-            sprintf(serOut, "<gyro:%.6f,%.6f,%.6f", gyro[0], gyro[1], gyro[2]);
+        if (sc.getGyro(arr)) {
+            sprintf(serOut, "<gyro:%i.%06i,%i.%06i,%i.%06i",
+                    (int)arr[0], (int)((arr[0]-(int)arr[0]*1000000)),
+                    (int)arr[1], (int)((arr[1]-(int)arr[1]*1000000)),
+                    (int)arr[2], (int)((arr[2]-(int)arr[2]*1000000)));
         } else {
             sprintf(serOut, "<gyro:null");
         }
     } else if (equals(serIn, ">getMag")) {
-        if (sc.getMag(mag)) {
-            sprintf(serOut, "<gyro:%.6f,%.6f,%.6f", mag[0], mag[1], mag[2]);
+        if (sc.getMag(arr)) {
+            sprintf(serOut, "<mag:%i.%06i,%i.%06i,%i.%06i",
+                    (int)arr[0], (int)((arr[0]-(int)arr[0]*1000000)),
+                    (int)arr[1], (int)((arr[1]-(int)arr[1]*1000000)),
+                    (int)arr[2], (int)((arr[2]-(int)arr[2]*1000000)));
         } else {
-            sprintf(serOut, "<gyro:null");
+            sprintf(serOut, "<mag:null");
         }
     } else if (equals(serIn, ">getColors")) {
         if (sc.getColors((uint16_t *)colors)) {
@@ -65,20 +81,23 @@ void loop() {
         } else {
             sprintf(serOut, "<colors:null");
         }
-    } else if (equals(serIn, ">setEject:")) {
-        sscanf(serIn, ">setEject:%i", &num);
+    } else if (equals(serIn, ">setThermo:")) {
+        sscanf(serIn, ">setThermo:%i", &num);
         act.thermoServo.write(num);
-    } else if (equals(serIn, ">setThermoSpeed:")) {
-        sscanf(serIn, ">setThermoSpeed:%i", &num);
-        act.ejectionServo.setSpeed(num);
-    } else if (equals(serIn, ">setThermoDirection:")) {
-        sscanf(serIn, ">setThermoDirection:%i", &num);
+        sprintf(serOut, "<thermo:%i", num);
+    } else if (equals(serIn, ">setEjectSpeed:")) {
+        sscanf(serIn, ">setEjectSpeed:%i", &num);
+        //act.ejectionServo.setSpeed(num);
+        //s.write(num);
+        sprintf(serOut, "<speed:%i", num);
+    } else if (equals(serIn, ">setEjectDirection:")) {
+        sscanf(serIn, ">setEjectDirection:%i", &num);
         act.ejectionServo.setDirection((direction_t) num);
+        sprintf(serOut, "<direction:%i", num);
     } else {
         sprintf(serOut, "<null");
     }
     ser.write(serOut);
-    memset(&serIn[0], 0, sizeof(serIn));
     //normal();
     //special();
 

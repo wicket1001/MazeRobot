@@ -8,10 +8,10 @@ typedef enum {
     Backward, Forward
 } direction_t;
 
-class ContinuousRotationServo: Servo {
+class ContinuousRotationServo {
 public:
     ContinuousRotationServo();
-    explicit ContinuousRotationServo(uint8_t port);
+    //explicit ContinuousRotationServo(uint8_t port);
     void setSpeed(int percent);
     void setDirection(direction_t dir);
 private:

@@ -13,7 +13,7 @@ typedef struct {
 
 class ActorControl {
 public:
-    explicit ActorControl(uint8_t port);
+    ActorControl();
 
     Servo thermoServo;
     ContinuousRotationServo ejectionServo;

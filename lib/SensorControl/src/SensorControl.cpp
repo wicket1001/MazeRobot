@@ -1,10 +1,23 @@
+/**
+ * @author Harald Moritz
+ * A library to summarize all Sensors.
+ */
 #include "SensorControl.h"
 
+/**
+ * A constructor to enable the SensorControl library.
+ * Please call init for full initialisation.
+ */
 SensorControl::SensorControl() {
     // uint8_t i = 0;
     us = HC_SR04();
 }
 
+/**
+ * Initialise the I2C Sensors.
+ *
+ * @return If the initialisation worked (1) or was aborted (0). See getErrorMessage for full error message.
+ */
 uint8_t SensorControl::init() {
     apds = SparkFun_APDS9960();
     if (!apds.init()) {
@@ -41,14 +54,30 @@ uint8_t SensorControl::init() {
     return 1;
 }
 
+/**
+ * Get the error message if an error occurred during the initialisation.
+ *
+ * @return The error message which occurred last.
+ */
 String SensorControl::getErrorMessage() {
     return err;
 }
 
+/**
+ * Set the last error message.
+ *
+ * @param error The last error that occurred.
+ */
 void SensorControl::setErrorMessage(String error) {
     err = error;
 }
 
+/**
+ * Get the colors from the APDS Sensor as uint16_t array.
+ *
+ * @param arr An uint16_t array to store the colors in.
+ * @return If it worked (1) or if it didn't work (0).
+ */
 uint8_t SensorControl::getColors(uint16_t *arr) {
     uint16_t ambient_light = 0;
     uint16_t red_light = 0;
@@ -70,9 +99,15 @@ uint8_t SensorControl::getColors(uint16_t *arr) {
     return 1;
 }
 
+/**
+ * Get the Temperature of the MLX90614 Sensor.
+ *
+ * @return The temp_t struct with the temperature of the object (object) and the sensor (ambient).
+ */
 temp_t *SensorControl::getTemperature() {
     if (therm.read()) {
         temp.object = therm.object();
+        Serial.println(therm.object());
         temp.ambient = therm.ambient();
         return &temp;
     } else {
@@ -80,6 +115,11 @@ temp_t *SensorControl::getTemperature() {
     }
 }
 
+/**
+ * Updates the values of the 10 dof.
+ *
+ * @return If it worked (1) or if it didn't work (0).
+ */
 uint8_t SensorControl::update10Dof() {
     if (_10dof.dataReady()) {
         _10dof.update(UPDATE_ACCEL | UPDATE_GYRO | UPDATE_COMPASS);
@@ -89,6 +129,12 @@ uint8_t SensorControl::update10Dof() {
     }
 }
 
+/**
+ * Get the Accelerometer values of the MPU-9250-DMP.
+ *
+ * @param arr The float array to store in.
+ * @return If it worked (1) or if it didn't work (0).
+ */
 uint8_t SensorControl::getAccel(float *arr) {
     uint8_t err = update10Dof();
     arr[0] = _10dof.calcAccel(_10dof.ax);
@@ -97,6 +143,12 @@ uint8_t SensorControl::getAccel(float *arr) {
     return err;
 }
 
+/**
+ * Get the Gyroscopic values of the MPU-9250-DMP.
+ *
+ * @param arr The float array to store in.
+ * @return If it worked (1) or if it didn't work (0).
+ */
 uint8_t SensorControl::getGyro(float *arr) {
     uint8_t err = update10Dof();
     arr[0] = _10dof.calcGyro(_10dof.gx);
@@ -105,6 +157,12 @@ uint8_t SensorControl::getGyro(float *arr) {
     return err;
 }
 
+/**
+ * Get the Magnetometer values of the MPU-9250-DMP.
+ *
+ * @param arr The float array to store in.
+ * @return If it worked (1) or if it didn't work (0).
+ */
 uint8_t SensorControl::getMag(float *arr) {
     uint8_t err = update10Dof();
     arr[0] = _10dof.calcMag(_10dof.mx);

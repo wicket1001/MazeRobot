@@ -1,3 +1,7 @@
+/**
+ * @author Harald Moritz
+ * A HC_SR04 library for up to 4 HC_SR04s.
+ */
 #include "HC_SR04.h"
 
 /**
@@ -172,6 +176,13 @@ void HC_SR04::special() {
     Serial.println("cm\n");
 }
 
+/**
+ * A self written pulseIn function.
+ *
+ * @param pin
+ * @param state
+ * @return
+ */
 unsigned long HC_SR04::pulseInA(uint8_t pin, uint8_t state) {
 
     unsigned long pulseWidth = 0;
