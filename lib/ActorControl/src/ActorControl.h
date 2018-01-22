@@ -2,24 +2,29 @@
 #define __ACTOR_CONTROL_H__
 
 #include <Arduino.h>
-#include "WS2812B.h"
 #include "ContiniousRotationServo.h"
-#include "MotorControl.h"
 
-typedef struct {
-    uint8_t motorPin;
-    uint8_t encoderPin;
-} motor_t;
+#define PIN 6
+
+#define NUM_LEDS 1
+
+// Parameter 1 = number of pixels in strip
+// Parameter 2 = pin number (most are valid)
+// Parameter 3 = pixel type flags, add together as needed:
+//   NEO_RGB     Pixels are wired for RGB bitstream
+//   NEO_GRB     Pixels are wired for GRB bitstream
+//   NEO_KHZ400  400 KHz bitstream (e.g. FLORA pixels)
+//   NEO_KHZ800  800 KHz bitstream (e.g. High Density LED strip)
 
 class ActorControl {
 public:
     ActorControl();
 
-    Servo thermoServo;
-    ContinuousRotationServo ejectionServo;
-
     void init();
+    //Servo thermoServo;
+    //ContinuousRotationServo ejectionServo;
 private:
+
 };
 
 #endif

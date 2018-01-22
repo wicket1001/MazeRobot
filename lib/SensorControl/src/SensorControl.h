@@ -1,4 +1,4 @@
-//#ifndef __SENSOR_CONTROL_H__
+#ifndef __SENSOR_CONTROL_H__
 #define __SENSOR_CONTROL_H__
 
 #include <Arduino.h>
@@ -39,4 +39,4 @@ private:
     temp_t temp;
 };
 
-//#endif
+#endif

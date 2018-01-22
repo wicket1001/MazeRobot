@@ -2,7 +2,14 @@
 #include "ActorControl.h"
 
 ActorControl::ActorControl() {
-    thermoServo.attach(3);
-    Serial.println("tgvhbjvkdhfbdn");
-    ejectionServo = ContinuousRotationServo();
+
+}
+/*
+void ActorControl::setColor() {
+
+}
+*/
+void ActorControl::init() {
+    //thermoServo.attach(3);
+    //ejectionServo = ContinuousRotationServo();
 }

@@ -1,4 +1,4 @@
-/home/user/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/173.4127.32/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot
+/home/user/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/173.4301.33/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/user/Schreibtisch/Talentehaus/Arduino/Mazerobot
 -- Configuring done
 CMake Error: CMake can not determine linker language for target: Mazerobot
 CMake Error: Cannot determine link language for target "Mazerobot".

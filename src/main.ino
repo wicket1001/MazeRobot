@@ -11,12 +11,13 @@ SerialCommunication ser;
 char serIn[300];
 char serOut[300];
 
-//Servo s;
-
 // SENSOR
 SensorControl sc;
 uint16_t colors[4];
 float arr[3];
+char double_str0[8];
+char double_str1[8];
+char double_str2[8];
 temp_t *t;
 double distances[4];
 
@@ -25,11 +26,13 @@ ActorControl act;
 int num;
 
 void setup() {
+    Serial.println("asdf");
     ser = SerialCommunication();
-//    s.attach(2);
     sc = SensorControl();
     act = ActorControl();
     sc.init();
+    act.init();
+    Serial.println("fdsa");
 }
 
 boolean equals(char* str1, char* str2) {
@@ -40,6 +43,7 @@ void loop() {
     memset(&serIn, 0, sizeof(serIn));
     memset(&serOut, 0, sizeof(serOut));
     while (ser.isEmpty()) { }
+    Serial.println("Hey");
     ser.read(serIn);
     ser.write(serIn);
     if (equals(serIn, ">getTemp")) {
@@ -50,28 +54,28 @@ void loop() {
         }
     } else if (equals(serIn,  ">getAccel")) {
         if (sc.getAccel(arr)) {
-            sprintf(serOut, "<accel:%i.%06i,%i.%06i,%i.%06i",
-                    (int)arr[0], (int)((arr[0]-(int)arr[0]*1000000)),
-                    (int)arr[1], (int)((arr[1]-(int)arr[1]*1000000)),
-                    (int)arr[2], (int)((arr[2]-(int)arr[2]*1000000)));
+            dtostrf(arr[0], 6, 5, double_str0);
+            dtostrf(arr[1], 6, 5, double_str1);
+            dtostrf(arr[2], 6, 5, double_str2);
+            sprintf(serOut, "<accel:%s,%s,%s", double_str0, double_str1, double_str2);
         } else {
             sprintf(serOut, "<accel:null");
         }
     } else if (equals(serIn, ">getGyro")) {
         if (sc.getGyro(arr)) {
-            sprintf(serOut, "<gyro:%i.%06i,%i.%06i,%i.%06i",
-                    (int)arr[0], (int)((arr[0]-(int)arr[0]*1000000)),
-                    (int)arr[1], (int)((arr[1]-(int)arr[1]*1000000)),
-                    (int)arr[2], (int)((arr[2]-(int)arr[2]*1000000)));
+            dtostrf(arr[0], 6, 5, double_str0);
+            dtostrf(arr[1], 6, 5, double_str1);
+            dtostrf(arr[2], 6, 5, double_str2);
+            sprintf(serOut, "<accel:%s,%s,%s", double_str0, double_str1, double_str2);
         } else {
             sprintf(serOut, "<gyro:null");
         }
     } else if (equals(serIn, ">getMag")) {
         if (sc.getMag(arr)) {
-            sprintf(serOut, "<mag:%i.%06i,%i.%06i,%i.%06i",
-                    (int)arr[0], (int)((arr[0]-(int)arr[0]*1000000)),
-                    (int)arr[1], (int)((arr[1]-(int)arr[1]*1000000)),
-                    (int)arr[2], (int)((arr[2]-(int)arr[2]*1000000)));
+            dtostrf(arr[0], 6, 5, double_str0);
+            dtostrf(arr[1], 6, 5, double_str1);
+            dtostrf(arr[2], 6, 5, double_str2);
+            sprintf(serOut, "<accel:%s,%s,%s", double_str0, double_str1, double_str2);
         } else {
             sprintf(serOut, "<mag:null");
         }
@@ -81,9 +85,13 @@ void loop() {
         } else {
             sprintf(serOut, "<colors:null");
         }
+    } else if (equals(serIn, ">setColor:")) {
+        sscanf(serIn, ">setColor:%i", &num);
+        // act.setColor();
+        sprintf(serOut, "<setColor:%i", &num);
     } else if (equals(serIn, ">setThermo:")) {
         sscanf(serIn, ">setThermo:%i", &num);
-        act.thermoServo.write(num);
+        //act.thermoServo.write(num);
         sprintf(serOut, "<thermo:%i", num);
     } else if (equals(serIn, ">setEjectSpeed:")) {
         sscanf(serIn, ">setEjectSpeed:%i", &num);
@@ -92,35 +100,10 @@ void loop() {
         sprintf(serOut, "<speed:%i", num);
     } else if (equals(serIn, ">setEjectDirection:")) {
         sscanf(serIn, ">setEjectDirection:%i", &num);
-        act.ejectionServo.setDirection((direction_t) num);
+        //act.ejectionServo.setDirection((direction_t) num);
         sprintf(serOut, "<direction:%i", num);
     } else {
         sprintf(serOut, "<null");
     }
     ser.write(serOut);
-    //normal();
-    //special();
-
-    //sensorLoop();
-    //actorLoop();
-    //rgbTest();
-    //buttonTest();
 }
-/*
-void normal() {
-    uint8_t trigger = 6;
-    uint8_t echo = 2;
-    hc_sr04.measureOne(trigger, echo);
-}
-
-void special() {
-    hc_sr04.getDistances(distances);
-    int length = sizeof(distances) / sizeof(distances[0]);
-    Serial.println("Distances from getDistances: ");
-    for (int i = 0; i < length; ++i) {
-        Serial.print(i);
-        Serial.print(": ");
-        Serial.println(distances[i]);
-    }
-}
-*/

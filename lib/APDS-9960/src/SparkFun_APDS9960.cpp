@@ -397,7 +397,7 @@ bool SparkFun_APDS9960::enableGestureSensor(bool interrupts)
     if( !enablePower() ){
         return false;
     }
-    if( !setMode(WAIT, 1) ) {
+    if( !setMode(WAIT_A, 1) ) {
         return false;
     }
     if( !setMode(PROXIMITY, 1) ) {

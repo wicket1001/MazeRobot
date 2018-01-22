@@ -7,7 +7,6 @@
  */
 ContinuousRotationServo::ContinuousRotationServo(/*uint8_t port*/) {
     servo.attach(2);//((int)port);
-    Serial.println("asdf");
 
     dir = Forward;
     speed = 0;
@@ -31,9 +30,5 @@ void ContinuousRotationServo::setDirection(direction_t dir) {
  * @param percent The speed percentage of the Servo.
  */
 void ContinuousRotationServo::setSpeed(int percent) {
-    Serial.print("SetSpeed ");
-    Serial.println(percent);
-    int a = 90 + map(percent * (dir * 2 - 1), 0, 100, 0, 90);
-    Serial.println(a);
-    servo.write(a);
+    servo.write(90 + map(percent * (dir * 2 - 1), 0, 100, 0, 90));
 }
