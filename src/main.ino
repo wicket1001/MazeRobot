@@ -15,9 +15,11 @@ char serOut[300];
 SensorControl sc;
 uint16_t colors[4];
 float arr[3];
-char double_str0[8];
-char double_str1[8];
-char double_str2[8];
+char double_str0[13];
+char double_str1[13];
+char double_str2[13];
+unsigned char width = 12;
+unsigned char prec = 5;
 temp_t *t;
 double distances[4];
 
@@ -26,13 +28,11 @@ ActorControl act;
 int num;
 
 void setup() {
-    Serial.println("asdf");
     ser = SerialCommunication();
     sc = SensorControl();
     act = ActorControl();
     sc.init();
     act.init();
-    Serial.println("fdsa");
 }
 
 boolean equals(char* str1, char* str2) {
@@ -42,8 +42,10 @@ boolean equals(char* str1, char* str2) {
 void loop() {
     memset(&serIn, 0, sizeof(serIn));
     memset(&serOut, 0, sizeof(serOut));
+    memset(&double_str0, 0, sizeof(double_str0));
+    memset(&double_str1, 0, sizeof(double_str1));
+    memset(&double_str2, 0, sizeof(double_str2));
     while (ser.isEmpty()) { }
-    Serial.println("Hey");
     ser.read(serIn);
     ser.write(serIn);
     if (equals(serIn, ">getTemp")) {
@@ -54,28 +56,31 @@ void loop() {
         }
     } else if (equals(serIn,  ">getAccel")) {
         if (sc.getAccel(arr)) {
-            dtostrf(arr[0], 6, 5, double_str0);
-            dtostrf(arr[1], 6, 5, double_str1);
-            dtostrf(arr[2], 6, 5, double_str2);
-            sprintf(serOut, "<accel:%s,%s,%s", double_str0, double_str1, double_str2);
+            sprintf(serOut, "<accel:%s,%s,%s",
+                    dtostrf(arr[0], width, prec, double_str0),
+                    dtostrf(arr[1], width, prec, double_str1),
+                    dtostrf(arr[2], width, prec, double_str2)
+            );
         } else {
             sprintf(serOut, "<accel:null");
         }
     } else if (equals(serIn, ">getGyro")) {
         if (sc.getGyro(arr)) {
-            dtostrf(arr[0], 6, 5, double_str0);
-            dtostrf(arr[1], 6, 5, double_str1);
-            dtostrf(arr[2], 6, 5, double_str2);
-            sprintf(serOut, "<accel:%s,%s,%s", double_str0, double_str1, double_str2);
+            sprintf(serOut, "<gyro:%s,%s,%s",
+                    dtostrf(arr[0], width, prec, double_str0),
+                    dtostrf(arr[1], width, prec, double_str1),
+                    dtostrf(arr[2], width, prec, double_str2)
+            );
         } else {
             sprintf(serOut, "<gyro:null");
         }
     } else if (equals(serIn, ">getMag")) {
         if (sc.getMag(arr)) {
-            dtostrf(arr[0], 6, 5, double_str0);
-            dtostrf(arr[1], 6, 5, double_str1);
-            dtostrf(arr[2], 6, 5, double_str2);
-            sprintf(serOut, "<accel:%s,%s,%s", double_str0, double_str1, double_str2);
+            sprintf(serOut, "<mag:%s,%s,%s",
+                    dtostrf(arr[0], width, prec, double_str0),
+                    dtostrf(arr[1], width, prec, double_str1),
+                    dtostrf(arr[2], width, prec, double_str2)
+            );
         } else {
             sprintf(serOut, "<mag:null");
         }
@@ -83,6 +88,7 @@ void loop() {
         if (sc.getColors((uint16_t *)colors)) {
             sprintf(serOut, "<colors:%i,%i,%i", colors[0], colors[1], colors[2]);
         } else {
+            Serial.println(sc.getErrorMessage());
             sprintf(serOut, "<colors:null");
         }
     } else if (equals(serIn, ">setColor:")) {

@@ -9,7 +9,6 @@
  */
 SerialCommunication::SerialCommunication() {
     Serial.begin(9600);
-    Serial.println("H");
 }
 
 /**
@@ -41,6 +40,5 @@ void SerialCommunication::read(char* buffer) {
  * @param buffer A char buffer to write to the Serial cache.
  */
 void SerialCommunication::write(char* buffer) {
-    Serial.print("Output: ");
     Serial.println(buffer);
 }

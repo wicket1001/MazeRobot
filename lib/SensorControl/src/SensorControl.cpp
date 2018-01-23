@@ -9,7 +9,6 @@
  * Please call init for full initialisation.
  */
 SensorControl::SensorControl() {
-    // uint8_t i = 0;
     us = HC_SR04();
 }
 
@@ -49,6 +48,10 @@ uint8_t SensorControl::init() {
     _10dof.setSampleRate(10);
     _10dof.setCompassSampleRate(10);
 
+    //Serial.println("Begin");
+    //_10dof.dmpBegin(DMP_FEATURE_GYRO_CAL | DMP_FEATURE_SEND_CAL_GYRO, 10);
+
+    Serial.println("End");
     delay(500);
 
     return 1;
@@ -121,6 +124,7 @@ temp_t *SensorControl::getTemperature() {
  * @return If it worked (1) or if it didn't work (0).
  */
 uint8_t SensorControl::update10Dof() {
+    while (!_10dof.dataReady()) { }
     if (_10dof.dataReady()) {
         _10dof.update(UPDATE_ACCEL | UPDATE_GYRO | UPDATE_COMPASS);
         return 1;
@@ -136,7 +140,7 @@ uint8_t SensorControl::update10Dof() {
  * @return If it worked (1) or if it didn't work (0).
  */
 uint8_t SensorControl::getAccel(float *arr) {
-    uint8_t err = update10Dof();
+    uint8_t err = _10dof.updateAccel();
     arr[0] = _10dof.calcAccel(_10dof.ax);
     arr[1] = _10dof.calcAccel(_10dof.ay);
     arr[2] = _10dof.calcAccel(_10dof.az);
@@ -150,10 +154,11 @@ uint8_t SensorControl::getAccel(float *arr) {
  * @return If it worked (1) or if it didn't work (0).
  */
 uint8_t SensorControl::getGyro(float *arr) {
-    uint8_t err = update10Dof();
+    uint8_t err = _10dof.updateGyro();
     arr[0] = _10dof.calcGyro(_10dof.gx);
     arr[1] = _10dof.calcGyro(_10dof.gy);
     arr[2] = _10dof.calcGyro(_10dof.gz);
+    Serial.println(err);
     return err;
 }
 
@@ -164,7 +169,8 @@ uint8_t SensorControl::getGyro(float *arr) {
  * @return If it worked (1) or if it didn't work (0).
  */
 uint8_t SensorControl::getMag(float *arr) {
-    uint8_t err = update10Dof();
+    uint8_t err = _10dof.updateCompass();
+    Serial.println(err);
     arr[0] = _10dof.calcMag(_10dof.mx);
     arr[1] = _10dof.calcMag(_10dof.my);
     arr[2] = _10dof.calcMag(_10dof.mz);

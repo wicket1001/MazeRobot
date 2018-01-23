@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-//#include "../lib/APDS_9960/src/SparkFun_APDS_9960.h"
 #include "../../MPU-9250-DMP/src/SparkFunMPU9250-DMP.h"
 #include "../../MLX90614/src/SparkFunMLX90614.h"
 #include "../../APDS-9960/src/SparkFun_APDS9960.h"
